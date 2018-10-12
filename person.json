@@ -1,0 +1,83 @@
+{"kitaplar": [
+  {
+    "id": "1",
+    "urun": "C Diline Giriş",
+    "fiyat": "6.95 TL",
+    "stok": 2,
+    "kategori": "Programlama Dilleri",
+    "aciklama": "Programlamaya yeni başlayanlar ve ilerletmek isteyenler için A’dan Z’ye örnekleri ile birlikte bir kitap."
+  },
+  {
+    "id": "2",
+    "urun": "Visual Studio ile ASP.NET MVC",
+    "fiyat": "12.95 TL",
+    "stok": 4,
+    "kategori": "Programlama Dilleri",
+    "aciklama": "Yeni başlayanlar ve kendini geliştirmek isteyenler için bir başucu kitabı olarak hazırlanmıştır."
+  },
+  {
+    "id": "3",
+    "urun": "Android Studio ile Mobil Programlama",
+    "fiyat": "25.95 TL",
+    "stok": 1,
+    "kategori": "Programlama Dilleri",
+    "aciklama": "Piyasadaki Android kitaplarıyla kıyaslandığı zaman başlangıç seviyesi ile uzman seviyesi arasında kalan bir konumda yer alır."
+  },
+  {
+    "id": "4",
+    "urun": "Java ile Tasarım Kalıpları",
+    "fiyat": "4.35 TL",
+    "stok": 4,
+    "kategori": "Yazilim Mimarisi ve Tasarimi",
+    "aciklama": "Kendini nesne temelli programlama, tasarım desenleri ve yazılım mimarisi alanında geliştirmek isteyen okuyucular için uygundur."
+  },
+  {
+    "id": "5",
+    "urun": "Tasarım Kalıplarının Önemi",
+    "fiyat": "9 TL",
+    "stok": 7,
+    "kategori": "Yazilim Mimarisi ve Tasarimi",
+    "aciklama": "Yeni başlayanlar ve kendini geliştirmek isteyenler için bir başucu kitabı olarak hazırlanmıştır."
+  },
+  {
+    "id": "6",
+    "urun": "Nesnelerin İnterneti Üzerine",
+    "fiyat": "19.00 TL",
+    "stok": 2,
+    "kategori": "Endustri 6 Donemi",
+    "aciklama": "Jeremy Rifkin, yeni bir ekonomik sistemin dünya sahnesinde boy göstermek üzere olduğunu haber veriyor."
+  },
+  {
+    "id": "7",
+    "urun": "Veri Yapıları",
+    "fiyat": "7.50 TL",
+    "stok": 9,
+    "kategori": "Bilgisayar Bilimleri",
+    "aciklama": "C programlama diline dayanılarak çeşitli veri yapıları ve modellerini ele almakta, onlara ait programın algoritmik ifadesini incelmektedir."
+  },
+  {
+    "id": "8",
+    "urun": "Özgür Yazılım",
+    "fiyat": "8.50 TL",
+    "stok": 5,
+    "kategori": "Bilgisayar Bilimleri",
+    "aciklama": "Özgür Yazılım felsefesine giriş yapmak için güzel bir başvuru kaynağıdır."
+  },
+  {
+    "id": "9",
+    "urun": "Bilgisayar Organizasyonu",
+    "fiyat": "5.50 TL",
+    "stok": 3,
+    "kategori": "Bilgisayar Bilimleri",
+    "aciklama": "Bilgisayar bilimlerinde önemli yer tutan ve hem donanım hem yazılım hem de işletim sistemleri konusunu yakından ilgilendiren bilgisayar mimarisi üzerindedir."
+  },
+  {
+    "id": "10",
+    "urun": "Sayısal Analiz",
+    "fiyat": "4.50 TL",
+    "stok": 7,
+    "kategori": "Bilgisayar Bilimleri",
+    "aciklama": "Mühendislikte karşılaşılan problemlerin çözümünde yaygın olarak kullanılan sayısal yöntemleri sade bir üslupla anlatmaktadır."
+  }
+]
+}

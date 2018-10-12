@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Burakcan TİMUÇİN | Kitaplar</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/personal.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown').hover(function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+                },
+                function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+                });
+            $("#socialMedia1").click(function () {
+                $("#socialMedia2").slideToggle("slow");
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="css/Personal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+
+    <style>
+        li {
+            line-height: 2em;
+        }
+
+        .product-search {
+            margin-top: 2.5em;
+        }
+
+        .btn-delete {
+            margin-left: 4px;
+        }
+
+        .total {
+            border-top: 1px dashed #3e3f3a;
+            margin-top: 6px;
+            padding-top: 6px;
+        }
+
+        .total-count {
+            padding-left: 38px;
+        }
+
+        .total-cost {
+            padding-right: 38px;
+        }
+
+        .text-discount {
+            margin-top: 1.5em;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body id="myPage">
+<br>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <personalBanner id="name" style="color: #802d72"><b style="text-shadow:1px 1px 2px #FFFFFF;">Burakcan TİMUÇİN</b></personalBanner>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="kitaplar.html">
+                    <personalBanner id="navMenu2">Kitaplar</personalBanner>
+                </a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <personalBanner id="navMenu">Çalışmalar</personalBanner>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="yazilimMuhendisligi.html">
+                            <personalBanner id="navMenu2">Yazılım Mühendisliği</personalBanner>
+                        </a></li>
+                        <li><a href="programlamaDilleri.html">
+                            <personalBanner id="navMenu2">Programlama Dilleri</personalBanner>
+                        </a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact1" id="contact">
+                    <personalBanner id="navMenu">İletişim</personalBanner>
+                </a></li>
+                <li id="vue" class="hidden">
+                    <div class="loginWrapper" style="color: black">
+                        <span class="edit" @click="toggleLogin()">
+                            <span v-show="!loggedIn"><i class="fa fa-sign-in"></i> Giriş Yap</span>
+                            <span v-show="loggedIn"><i class="fa fa-sign-out"></i> Çıkış Yap</span>
+                        </span>
+                        <div v-show="showLogin && loggedIn == false">
+                            <p class="notification" v-bind:class="notificationStatus">{{ notification }}</p>
+                            <input class="nameInput" v-model="newUser.username" placeholder="Kullanıcı Adı"
+                                   @keyup="isExistingUser()"
+                                   @keyup.enter="login()"/>
+                            <input class="passwordInput" v-model="newUser.password" type="password"
+                                   placeholder="Parola"
+                                   @keyup.tab="isExistingUser()" @keyup.enter="login()"/>
+                            <button @click="login()">{{ loginButtonText }}</button>
+                        </div>
+                        <div v-show="showLogin && loggedIn == true">
+                            <h3>Hey, {{ myUsername }}!</h3>
+                            <p>{{ loggedInLoginDescription }}</p>
+                            <button @click="logout()">Çıkış Yap</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<link rel="stylesheet" href="css/Login.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+<script src='https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js'></script>
+<script src='https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.js'></script>
+<script src='https://gstatic.com/firebasejs/3.5.2/firebase.js'></script>
+<script src='https://unpkg.com/vuefire@1.4.1/dist/vuefire.js'></script>
+<script src="js/index.js"></script>
+
+<div style="background-color: #FFFFFF"><br/><br/>
+    <div class="container" id="app" style="color: black; font-size: small">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="input-group product-search">
+                        <input class="form-control" placeholder="Konuya Göre Kitap Ara" type="text" v-model="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" @click="sortProducts( 'name' )"><i
+                                    class="fa fa-unsorted"></i> Konuya Göre Sırala
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" v-for="item in filteredProducts">
+                        <h3>{{ item.name | titlecase }}</h3>
+                        <li v-for="option in item.options" style="list-style-type:none">
+                            <strong>{{ option.details | titlecase }}</strong> {{ option.price }} TL
+                            <button class="btn btn-default btn-xs" type="button" @click="addToCart( item, option )"
+                                    title="Add to Cart">Ekle <i class="fa fa-cart-plus"></i></button>
+                        </li>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1 well">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h3><i class="fa fa-shopping-cart"></i> Alışveriş Sepeti</h3>
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="text-discount text-right">
+                            <em v-if="total > 100"><strong>10% İndirim<br>{{ discount.toFixed(2) }} TL tasarruftasınız.</strong></em>
+                            <em v-else>100 TL ve üstü alışverişinizde %10 indirim kazanacaksınız.</em>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <ul class="list-unstyled">
+                    <li class="row" v-for="item in shopping_cart">
+                        <div class="col-xs-10">
+                            <button class="btn btn-xs btn-default" @click="removeOne( item )" type="button"
+                                    title="Azalt"><i class="fa fa-minus"></i></button>
+                            <small><span class="badge">{{ item.quantity | zeropad }}</span></small>
+                            <button class="btn btn-xs btn-default" @click="addOne( item )" type="button"
+                                    title="Ekle"><i class="fa fa-plus"></i></button>
+                            <small>{{ item.listitem }} ({{ item.price.toFixed(2) }} TL)</small>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-xs btn-danger btn-delete" @click="removeFromCart( item )"
+                                    aria-label="Close" title="Kaldır"><span aria-hidden="true"><b>&times;</b></span>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="row total">
+                        <div class="col-xs-6 total-count"><strong>{{ count | zeropad }} Ürün</strong></div>
+                        <div class="col-xs-6 text-right total-cost"><strong :class="{ 'text-success' :discount }">{{ (
+                            total - discount ).toFixed(2) }} TL</strong></div>
+                    </li>
+                    <li class="row" v-if="total > 0">
+                        <hr>
+                        <div class="col-xs-6 text-right">
+                            <small>Bağış yapmak ister misiniz?</small>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon"><i class="fa fa-plus"></i></span>
+                                <select class="form-control input-sm" v-model="donation">
+                                    <option value="0">0.00</option>
+                                    <option value="1">1.00</option>
+                                    <option value="5">5.00</option>
+                                    <option value="10">10.00</option>
+                                    <option value="15">15.00</option>
+                                    <option value="20">20.00</option>
+                                    <option value="25">25.00</option>
+                                    <option value="50">50.00</option>
+                                    <option value="100">100.00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <p class="text-center">
+                            <small><em>Bağışlarınızın tamamı hayır kurumuna gitmektedir.</em></small>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+        </div><br/><br/>
+        <div style="background-color: #F0F8FF;" class="row"><br/>
+            <div style="color: black; font-size: medium">
+                <div class="col-sm-4">
+                    <p><b>Kategori Seçiniz </b></p>
+                    <select name="cars" id="people2" onchange="myFunction()">
+                        <option selected>Seçiniz</option>
+                        <option value="Programlama Dilleri">Programlama Dilleri</option>
+                        <option value="Yazilim Mimarisi ve Tasarimi">Yazılım Mimarisi ve Tasarımı</option>
+                        <option value="Endustri 6 Donemi">Endüstri 6 Dönemi</option>
+                        <option value="Bilgisayar Bilimleri">Bilgisayar Bilimleri</option>
+                    </select><br/><br/>
+                    <p><b>Kitap Seçiniz </b></p>
+                    <select name="cars2" id="car2">
+                        <option>Kategori seçiniz</option>
+                    </select>
+                    <br/><br/>
+                    <input id="people" type="submit" value="Seçtiğin Kitabı Ara" onclick="myFunction2()"><br/><br/>
+                </div>
+                <div class="col-sm-8"><br/><br/>
+                    <p id="demo"></p>
+                    <script>
+                        function myFunction() {
+                            var i = 0;
+                            $('#car2').empty();
+                            var $form = $('#people2');
+                            var selectedIndex = $form.index();
+                            var category = $form.val();
+                            $.ajax({
+                                url: 'person.JSON',
+                                dataType: 'JSON',
+                                success: function (data) {
+                                    $.each(data.kitaplar, function (key, val) {
+                                        if (val.kategori == $('#people2').val())
+                                            $("#car2").append('<option id="' + val.id + '">' + val.urun + '</option>');
+                                        else if (($('#people2').val() == "Seçiniz") && (i == 0)) {
+                                            $("#car2").append('<option>' + "Kategori seçiniz" + '</option>');
+                                            i++;
+                                        }
+                                    })
+                                }
+                            });
+                        }
+                        function myFunction2() {
+                            $('#demo').empty();
+                            var $form = $('#car2');
+                            var selectedIndex = $form.index();
+                            var category = $form.val();
+                            //request the JSON data and parse into the select element
+                            $.ajax({
+                                url: 'person.JSON',
+                                dataType: 'JSON',
+                                success: function (data) {
+                                    //clear the current content of the select
+                                    //iterate over the data and append a select option
+                                    $.each(data.kitaplar, function (key, val) {
+                                        if (val.urun == $('#car2').val())
+                                            $("#demo").append('<p style="font-size: small" id="' + val.id + '">' +
+                                                "<b>Kategori: </b>" + '<i>' + val.kategori + '</i>' + "<br>" +
+                                                "<b>Ad: </b>" + '<i>' + val.urun + '</i>' + "<br>" + "<b>Fiyat: </b>" +
+                                                '<i>' + val.fiyat + '</i>' + "<br>" + "<b>Stok: </b>" + '<i>' + val.stok + '</i>'
+                                                + " tane" + "<br>" + "<b>Açıklama: </b>" + '<i>' + val.aciklama + '</i>' + '</p>' + "<br/>");
+                                    })
+                                }
+                            });
+                        }
+                    </script>
+                </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <br/>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.js" integrity="sha256-MbKnwYm5PqnQ9xLd0vK2C8vDJZA+PXKuNlmgJc+BG48=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.min.js"
+            integrity="sha256-WcJDyxpvFLMHHA7kQuvbE5kWgRwV3zukWdjvbTUcXh8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"
+            integrity="sha256-wLefPvftUZaYEQquDfRpnXG8nkR2o9vutAcDLNe64R0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"
+            integrity="sha256-Cv5v4i4SuYvwRYzIONifZjoc99CkwfncROMSWat1cVA=" crossorigin="anonymous"></script>
+    <script src="js/products.js"></script>
+    <script>
+        var footer = new Vue({
+            el: ".footer"
+        });
+
+        Vue.filter("subvalue", function (val) {
+            return _.multiply(val.price, val.quantity);
+        });
+
+        Vue.filter("tocurrency", function (num) {
+            return accounting.formatMoney(num);
+        });
+
+        Vue.filter("zeropad", function (num) {
+            if (num > 9) {
+                return _.padStart(num, 2, '0');
+            } else if (num >= 0 && num <= 9) {
+                return _.padStart(num, 1, '0');
+            } else {
+                return 0;
+            }
+        });
+
+        Vue.filter("titlecase", function (str) {
+            return _.startCase(str);
+        });
+
+        Vue.filter("textcapitalized", function (str) {
+            return _.capitalize(str);
+        });
+
+
+        var demo = new Vue({
+            el: "#app",
+            data: {
+                products: inventory,
+                shopping_cart: [],
+                donation: 0,
+                subtotal: 0,
+                search: "",
+                orderDir: "desc",
+                sortByParam: "",
+            },
+            methods: {
+                sortProducts: function (sortBy) {
+                    this.sortByParam = sortBy;
+                    this.orderDir = this.orderDir === "asc" ? "desc" : "asc";
+                    this.products = _.orderBy(this.products, this.sortByParam, this.orderDir);
+                },
+                addToCart: function (product, option) {
+                    var itemName = option.details;
+                    var itemPrice = option.price;
+                    var itemQuantity = 1;
+                    for (var index in this.shopping_cart) {
+                        var cartItem = this.shopping_cart[index];
+                        if (option.id === cartItem.id) {
+                            itemQuantity = parseInt(cartItem.quantity) + 1;
+                            itemInCart = this.shopping_cart.indexOf(cartItem);
+                            this.shopping_cart.splice(itemInCart, 1);
+                        }
+                    }
+                    var itemToAdd = {
+                        price: itemPrice,
+                        listitem: itemName,
+                        quantity: itemQuantity,
+                        id: option.id
+                    }
+                    this.shopping_cart.push(itemToAdd);
+                },
+                addOne: function (product) {
+                    product.quantity++;
+                },
+                removeOne: function (product) {
+                    if (product.quantity > 0) {
+                        product.quantity--;
+                    }
+                },
+                removeFromCart: function (product) {
+                    if (product.quantity > 0) {
+                        product.quantity--;
+                    }
+                    if (product.quantity >= 0) {
+                        this.shopping_cart.$remove(product);
+                    }
+                }
+            },
+            computed: {
+                filteredProducts: function () {
+                    if (this.search) {
+                        var searchQuery = this.search;
+                        return this.products.filter(function (product) {
+                            if (_.upperCase(product.name).indexOf(_.upperCase(searchQuery)) != -1) {
+                                return product;
+                            }
+                        });
+                    } else {
+                        return this.products;
+                    }
+                },
+                count: function () {
+                    var itemCount = 0;
+                    for (var idx in this.shopping_cart) {
+                        var currentItem = this.shopping_cart[idx];
+                        itemCount += parseInt(currentItem.quantity);
+                    }
+                    return itemCount
+                },
+                total: function () {
+                    var totalCost = 0;
+                    for (var idx in this.shopping_cart) {
+                        var currentItem = this.shopping_cart[idx];
+                        totalCost += parseInt(currentItem.quantity) * currentItem.price;
+                        totalCost += parseInt(this.donation);
+                    }
+                    return totalCost
+                },
+                discount: function () {
+                    if (this.total > 100) {
+                        return ( this.total - this.donation ) * 0.1;
+                    }
+                    return 0;
+                }
+            }
+        });
+    </script>
+
+    <!-- Fifth Container (Contact) -->
+    <div id="contact1" style="background-color: white">
+        <div class="container">
+            <h2 class="text-center">İLETİŞİM</h2>
+            <div id="contact2" class="row">
+                <div class="col-sm-5">
+                    <p>Bizimle irtibata geçin ve size 24 saat içinde geri dönüş yapacağız.</p>
+                    <p><span class="glyphicon glyphicon-map-marker"></span> Sarıyer, İstanbul</p>
+                    <p><span class="glyphicon glyphicon-phone"></span> +90 05376128493</p>
+                    <p><span class="glyphicon glyphicon-envelope"></span> burakcan.timucin@cafetur.com</p>
+                </div>
+                <div class="col-sm-7 slideanim">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <input class="form-control" id="name" name="name" placeholder="İsim" type="text" required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <input class="form-control" id="email" name="email" placeholder="Email" type="email"
+                                   required>
+                        </div>
+                    </div>
+                    <textarea class="form-control" id="comments" name="comments" placeholder="Yorum"
+                              rows="5"></textarea><br>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button class="btn btn-default pull-right" type="submit">Gönder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-5 text-center" style="background-color: #F0F8FF">
+        <div class="col-xs-6">
+            <p>© 2017 Burakcan Timuçin</p>
+        </div>
+        <div class="col-xs-6">
+            <p><a href="#myPage">Üste Dön</a></p>
+        </div>
+    </footer>
+
+
+    <!-- Smooth Scrolling with jQuery -->
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links in navbar + footer link
+            $(".navbar a#contact, footer a[href='#myPage']").on('click', function (event) {
+
+                // Prevent default anchor click behavior
+                event.preventDefault();
+
+                // Store hash
+                var hash = this.hash;
+
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 900, function () {
+
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            });
+
+            // Slide in elements on scroll
+            $(window).scroll(function () {
+                $(".slideanim").each(function () {
+                    var pos = $(this).offset().top;
+
+                    var winTop = $(window).scrollTop();
+                    if (pos < winTop + 600) {
+                        $(this).addClass("slide");
+                    }
+                });
+            });
+        })
+    </script>
+
+</body>
+</html>

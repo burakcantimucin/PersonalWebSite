@@ -1,0 +1,74 @@
+body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+}
+p {font-size: 16px;}
+.margin {margin-bottom: 45px;}
+.bg-1 {
+    background-color: #4891d9; /* Estonian Blue */
+    color: #ffffff;
+}
+.bg-2 {
+    background-color: #000000; /* Black */
+    color: #4891d9;
+}
+.bg-3 {
+    background-color: #ffffff; /* White */
+    color: #4891d9;
+}
+.bg-4 {
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+}
+.bg-5 {
+    background-color: lightgray; /* Light Gray */
+    color: #000;
+}
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 3px;
+    background-image: url("https://png.pngtree.com/back_pic/00/15/30/4656e81f6dc57c5.jpg");
+}
+.navbar-nav  li a:hover {
+    color: #1abc9c !important;
+}
+personalBanner#name  {
+    color: #802d72;
+    text-shadow: 1px 1px 2px #FFFFFF;
+    font-weight: bold;
+}
+personalBanner#navMenu  {
+    color: #4891d9;
+}
+personalBanner#navMenu2  {
+    color: #4891d9;
+
+}
+p.content {
+    font-size: 13px;
+}
+#socialMedia1 {
+    padding: 5px;
+}
+#socialMedia2 {
+    padding: 5px;
+    display: none;
+}
+#contact1 {
+    padding: 30px;
+    color: black;
+}
+#contact2 {
+    padding: 30px;
+    color: black;
+}

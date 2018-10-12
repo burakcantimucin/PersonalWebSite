@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Burakcan TİMUÇİN | Programlama Dilleri</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/personal.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
+    <script>
+        $(document).ready(function () {
+            $('.dropdown').hover(function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+                },
+                function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+                });
+            $("#socialMedia1").click(function () {
+                $("#socialMedia2").slideToggle("slow");
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="css/personal.css">
+</head>
+<body id="myPage">
+<br>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <personalBanner id="name" style="color: #802d72"><b style="text-shadow:1px 1px 2px #FFFFFF;">Burakcan TİMUÇİN</b></personalBanner>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="kitaplar.html">
+                    <personalBanner id="navMenu2">Kitaplar</personalBanner>
+                </a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <personalBanner id="navMenu">Çalışmalar</personalBanner>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="yazilimMuhendisligi.html">
+                            <personalBanner id="navMenu2">Yazılım Mühendisliği</personalBanner>
+                        </a></li>
+                        <li><a href="programlamaDilleri.html">
+                            <personalBanner id="navMenu2">Programlama Dilleri</personalBanner>
+                        </a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact1" id="contact">
+                    <personalBanner id="navMenu">İletişim</personalBanner>
+                </a></li>
+                <li id="vue" class="hidden">
+                    <div class="loginWrapper" style="color: black">
+                        <span class="edit" @click="toggleLogin()">
+                            <span v-show="!loggedIn"><i class="fa fa-sign-in"></i> Giriş Yap</span>
+                            <span v-show="loggedIn"><i class="fa fa-sign-out"></i> Çıkış Yap</span>
+                        </span>
+                        <div v-show="showLogin && loggedIn == false">
+                            <p class="notification" v-bind:class="notificationStatus">{{ notification }}</p>
+                            <input class="nameInput" v-model="newUser.username" placeholder="Kullanıcı Adı"
+                                   @keyup="isExistingUser()"
+                                   @keyup.enter="login()"/>
+                            <input class="passwordInput" v-model="newUser.password" type="password"
+                                   placeholder="Parola"
+                                   @keyup.tab="isExistingUser()" @keyup.enter="login()"/>
+                            <button @click="login()">{{ loginButtonText }}</button>
+                        </div>
+                        <div v-show="showLogin && loggedIn == true">
+                            <h3>Hey, {{ myUsername }}!</h3>
+                            <p>{{ loggedInLoginDescription }}</p>
+                            <button @click="logout()">Çıkış Yap</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<link rel="stylesheet" href="css/login.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+<script src='https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js'></script>
+<script src='https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.js'></script>
+<script src='https://gstatic.com/firebasejs/3.5.2/firebase.js'></script>
+<script src='https://unpkg.com/vuefire@1.4.1/dist/vuefire.js'></script>
+<script src="js/index.js"></script>
+
+<section id="four" class="no-padding container" style="color: black; font-size: small">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center text-primary">Popüler Programlama Dilleri</h2><br>
+                <style type="text/css">
+                    .dilkutusu {
+                        height: auto;
+                        padding: 0px;
+                        border: 0px solid gray;
+                        margin: 0px;
+                        word-wrap: break-word;
+                        overflow: auto;
+                    }
+
+                    .dilkutusu p {
+                        font-size: 100%;
+                        word-wrap: break-word;
+                    }
+
+                    .icon-lg {
+                        font-size: 72px;
+                    }
+                </style>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeInRight">
+
+                                <div class="media-left">
+                                    <a href="#alertModal1" data-toggle="modal" data-target="#alertModal1"><br><br><br><i
+                                            class="icon-lg devicon-c-plain"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p  >C, AT&T Bell laboratuvarlarında, Ken Thompson ve Dennis Ritchie tarafından UNIX
+                                        İşletim Sistemi' ni geliştirebilmek amacıyla B dilinden türetilmiş yapısal bir
+                                        programlama dilidir.</p>
+                                </div>
+
+                            </div>
+                            <div id="alertModal1" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">C</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> Zorunlu (yordamsal), yapısal<br>
+                                                <b>İlk çıkışı:</b> 1972<br>
+                                                <b>Tasarımcı:</b> Dennis Ritchie<br>
+                                                <b>Geliştirici Aslen:</b> Dennis Ritchie & Bell Labs<br>
+                                                <b>ANSI C:</b> ANSI X3J11<br>
+                                                <b>ISO C:</b> ISO/IEC JTC1/SC22/WG14<br>
+                                                <b>Kararlı sürüm:</b> C99(Mart 2000)<br>
+                                                <b>Önizleme sürümü:</b> C1X<br>
+                                                <b>Tip sistemi:</b> zayıf, statik, belirgin<br>
+                                                <b>Önemli uygulamaları:</b> Clang, GCC, MSVC, Turbo C, Watcom C<br>
+                                                <b>Lehçeleri:</b> Cyclone, Unified Parallel C, Split-C, Cilk, C*<br>
+                                                <b>Etkilendikleri:</b> B (BCPL, CPL), ALGOL 68, Çevirici, PL/I,
+                                                FORTRAN<br>
+                                                <b>Etkiledikleri:</b> Birçok: AMPL, AWK, csh, C++, C-- , C#,
+                                                Objective-C, BitC, D, Go, Java, JavaScript, Limbo, LPC, Perl, PHP, Pike,
+                                                Processing, Python, Comfy<br>
+                                                <b>İşletim sistemi:</b> Çapraz platform<br>
+                                                <b>Olağan dosya uzantıları:</b> .h .c<br>
+                                            </p>
+                                            <p class="text-center"><a
+                                                    href="https://tr.0wikipedia.org/wiki/C_(programlama_dili)"
+                                                    target="_blank">C Hakkında Daha Fazlasını Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal2" data-toggle="modal" data-target="#alertModal2"><br><br><br><i
+                                            class="icon-lg devicon-cplusplus-plain"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>C++, Bell Laboratuvarlarından Bjarne Stroustrup tarafından 1979 yılından itibaren
+                                        geliştirilmeye başlanmış, C'yi kapsayan ve çok paradigmalı, yaygın olarak
+                                        kullanılan, genel amaçlı bir programlama dilidir. İlk olarak C With Classes
+                                        (Sınıflarla C) olarak adlandırılmış, 1983 yılında ismi C++ olarak
+                                        değiştirilmiştir.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal2" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">C++</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> çok paradigmalı: yordamsal, nesne yönelimli,
+                                                genel<br>
+                                                <b>İlk çıkışı:</b> 1983<br>
+                                                <b>Tasarımcı:</b> Bjarne Stroustrup<br>
+                                                <b>Geliştirici:</b> Bjarne Stroustrup Bell Labs ISO/IEC
+                                                JTC1/SC22/WG21<br>
+                                                <b>Kararlı sürüm:</b> SO/IEC 14882:2011(2011)<br>
+                                                <b>Önizleme sürümü:</b> C++11<br>
+                                                <b>Tip sistemi:</b> statik, emniyetsiz, yalın<br>
+                                                <b>Önemli uygulamaları:</b> C++ Builder, clang, Comeau C/C++, GCC, Intel
+                                                C++ Compiler, Microsoft Visual C++, Sun Studio<br>
+                                                <b>Lehçeleri:</b> ISO/IEC C++ 1998, ISO/IEC C++ 2003, ISO/IEC C++
+                                                2011<br>
+                                                <b>Etkilendikleri:</b> C, Simula, Ada 83, ALGOL 68, CLU, ML<br>
+                                                <b>Etkiledikleri:</b> Perl, LPC, Lua, Pike, Ada 95, Java, PHP, D, C99,
+                                                C#, Falcon<br>
+                                                <b>İşletim sistemi:</b> Çapraz platform<br>
+                                                <b>Olağan dosya uzantıları:</b> .h .hh .hpp .hxx .h++ .cc .cpp .cxx .c++<br>
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/C%2B%2B"
+                                                                      target="_blank">C++ Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal3" data-toggle="modal" data-target="#alertModal3"><br><br><br><i
+                                            class="icon-lg devicon-csharp-plain"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>C#, Microsoft'un geliştirmiş olduğu yeni nesil programlama dilidir. Yine
+                                        Microsoft tarafından geliştirilmiş .NET Teknolojisi için geliştirilmiş dillerden
+                                        biridir.Microsoft tarafından geliştirilmiş olsa da ECMA ve ISO standartları
+                                        altına alınmıştır.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal3" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">C#</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> Yapısal (structured), Zorunlu (imperative), Nesne
+                                                yönelimli (object-oriented), Olaya dayalı (event-driven), Fonksiyonel<
+                                                (functional), Genel (generic), Yansıtıcı (reflective), Eşzamanlı
+                                                (concurrent)<br>
+                                                <b>İlk çıkışı:</b> 2000 (16 yıl önce)<br>
+                                                <b>Tasarımcı:</b> Microsoft<br>
+                                                <b>Geliştirici:</b> Microsoft<br>
+                                                <b>Kararlı sürüm:</b> 6.0 (20 Temmuz 2015 (11 ay önce))<br>
+                                                <b>Önemli uygulamaları:</b> Visual C#, .NET Framework, Mono, DotGNU<br>
+                                                <b>Etkilendikleri:</b> C++<br>
+                                                <b>Etkiledikleri</b>: D, Dart, Swift<br>
+                                                <b>Platformu:</b> Cross-platform<br>
+                                                <b>Lisans:</b> CLR is proprietary, GPLv3, MIT/X11, LGPLv2, GPL<br>
+                                                <b>Olağan dosya uzantıları:</b> .cs<br>
+                                                <b>Ailesi:</b> C<br>
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/C_Sharp"
+                                                                      target="_blank">C# Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal4" data-toggle="modal" data-target="#alertModal4"><br><br><br><i
+                                            class="icon-lg devicon-java-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>Java, Sun Microsystems mühendislerinden James Gosling tarafından geliştirilmeye
+                                        başlanmış açık kodlu, nesneye yönelik, zeminden bağımsız, yüksek verimli, çok
+                                        işlevli, yüksek seviye, adım adım işletilen (yorumlanan-interpreted) bir
+                                        dildir.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal4" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">Java</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> Nesne yönelimli (çok paradigmalı), yapısal,
+                                                zorunlu<br>
+                                                <b>İlk çıkışı:</b> 1995<br>
+                                                <b>Tasarımcı:</b> James Gosling & Sun Microsystems<br>
+                                                <b>Geliştirici:</b> Oracle Corporation<br>
+                                                <b>Kararlı sürüm:</b> Java Standard Edition 8 Update 40 (1.8.0_40) (3
+                                                Mart 2015 (16 ay önce))<br>
+                                                <b>Tip sistemi:</b> Statik, güçlü, güvenli, yalın, belirgin<br>
+                                                <b>Önemli uygulamaları:</b> OpenJDK, HotSpot ve daha fazlası<br>
+                                                <b>Lehçeleri:</b> Generic Java, Pizza<br>
+                                                <b>Etkilendikleri:</b> Ada 83, C++, Delphi Object Pascal, Eiffel,
+                                                Generic Java, Mesa, Modula-3, Oberon, Objective-C, UCSD Pascal,
+                                                Smalltalk<br>
+                                                <b>Etkiledikleri:</b> Ada 2005, BeanShell, C#, Clojure, D, ECMAScript,
+                                                Groovy, J#, JavaScript, PHP, Python, Scala, Seed7, Vala<br>
+                                                <b>Platformu:</b> Çapraz platform<br>
+                                                <b>Lisans:</b> GNU Genel Kamu Lisansı / Java Community Process<br>
+                                                <b>Olağan dosya uzantıları:</b> .java, .class, .jar
+                                            </p>
+                                            <p class="text-center"><a
+                                                    href="https://tr.0wikipedia.org/wiki/Java_(programlama_dili)"
+                                                    target="_blank">Java Hakkında Daha Fazlasını Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal5" data-toggle="modal" data-target="#alertModal5"><br><br><br><i
+                                            class="icon-lg devicon-python-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>Python, nesne yönelimli, yorumlamalı, birimsel(modüler) ve etkileşimli yüksek
+                                        seviyeli bir programlama dilidir.Girintilere dayalı basit sözdizimi, dilin
+                                        öğrenilmesini ve akılda kalmasını kolaylaştırır. Bu da ona söz diziminin
+                                        ayrıntıları ile vakit yitirmeden programlama yapılmaya başlanabilen bir dil olma
+                                        özelliği kazandırır.</p>
+                                </div>
+
+                            </div>
+                            <div id="alertModal5" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">Phyton</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> çok paradigmalı: nesne yönelimli, zorunlu,
+                                                fonksiyonel, yansıtıcı<br>
+                                                <b>İlk çıkışı:</b> 1991<br>
+                                                <b>Tasarımcı:</b> Guido van Rossum<br>
+                                                <b>Geliştirici:</b> Python Yazılım Vakfı<br>
+                                                <b>Kararlı sürüm:</b> 3.4.3 (25 Şubat 2015) 2.7.10 (23 Mayıs 2015)<br>
+                                                <b>Önizleme Sürümü:</b> 3.5.0b2 (31 Mayıs 2015) <br>
+                                                <b>Tip sistemi:</b> güçlü, dinamik<br>
+                                                <b>Önemli uygulamaları:</b> CPython, IronPython, Jython, Python for S60,
+                                                PyPy, Unladen Swallow<br>
+                                                <b>Lehçeleri:</b> Stackless Python, RPython<br>
+                                                <b>Etkilendikleri:</b> ABC, ALGOL 68, C, Haskell, Icon, Java, Lisp,
+                                                Modula-3, Perl<br>
+                                                <b>Etkiledikleri:</b> Boo, Cobra, D, Falcon, Groovy, Ruby, JavaScript,
+                                                Comfy<br>
+                                                <b>Platformu:</b> Çapraz platform<br>
+                                                <b>İşletim Sistemi:</b> Python Yazılım Vakfı Lisansı<br>
+                                                <b>Lisans:</b> Python Software Foundation License<br>
+                                                <b>Olağan dosya uzantıları:</b> .py, .pyw, .pyc, .pyo, .pyd
+                                            </p>
+                                            <p class="text-center"><a
+                                                    href="https://tr.0wikipedia.org/wiki/Python_(programlama_dili)"
+                                                    target="_blank">Phyton Hakkında Daha Fazlasını Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal6" data-toggle="modal" data-target="#alertModal6"><br><br><br><i
+                                            class="icon-lg devicon-ruby-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>Ruby, nesneye yönelik, dinamik, reflektif bir programlama dilidir. Ruby dili,
+                                        Yukihiro Matsumoto tarafından Japonya'da tasarlanmaya ve geliştirilmeye
+                                        başlanmıştır.Sözdizimi olarak, Ada, Perl, Smalltalk, Lisp, Eiffel gibi
+                                        programlama dillerinden etkilenen Ruby; Python ile kimi ortak sözdizimi
+                                        özelliklerine sahiptir.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal6" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">Ruby</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> çok paradigmalı: nesneye yönelik, fonksiyonel,
+                                                reaktif<br>
+                                                <b>İlk çıkışı:</b> 1995<br>
+                                                <b>Tasarımcı:</b> Yukihiro Matsumoto<br>
+                                                <b>Geliştirici:</b> Yukihiro Matsumoto ve diğerleri<br>
+                                                <b>Kararlı sürüm:</b> 2.3.1 (26 Nisan 2016)<br>
+                                                <b>Önizleme Sürümü:</b> 2.4.0-preview1(20 Haziran 2016) <br>
+                                                <b>Tip sistemi:</b> güçlü, dinamik, ördek<br>
+                                                <b>Önemli uygulamaları:</b> Ruby MRI, YARV, JRuby, Rubinius, Maglev,
+                                                IronRuby, MacRuby, HotRuby, RubyMotion, mruby<br>
+                                                <b>Etkilendikleri:</b> Smalltalk, Perl, Lisp, Scheme, Python, CLU,
+                                                Eiffel, Ada, Dylan, C++<br>
+                                                <b>Etkiledikleri:</b> Clojure, D dili,[2] Groovy, Nu, Falcon, Ioke,
+                                                Mirah, Elixir, Julia dili, Swift<br>
+                                                <b>İşletim Sistemi:</b> Çapraz platform yazılımları<br>
+                                                <b>Lisans:</b> Ruby Lisansı veya GNU Genel Kamu Lisansı v2<br>
+                                                <b>Olağan dosya uzantıları:</b> .rb, .rbw
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/Ruby"
+                                                                      target="_blank">Ruby Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal7" data-toggle="modal" data-target="#alertModal7"><br><br><br><i
+                                            class="icon-lg devicon-javascript-plain"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>JavaScript, yaygın olarak web tarayıcılarında kullanılmakta olan dinamik bir
+                                        programlama dilidir. JavaScript ile yazılan istemci tarafı betikler sayesinde
+                                        tarayıcının kullanıcıyla etkileşimde bulunması, tarayıcının kontrol edilmesi,
+                                        asenkron bir şekilde sunucu ile iletişime geçilmesi ve web sayfası içeriğinin
+                                        değiştirilmesi gibi işlevler sağlanır. JavaScript, Node.js gibi platformlar
+                                        sayesinde sunucu tarafında da yaygın olarak kullanılmaktadır.</p>
+                                </div>
+
+                            </div>
+                            <div id="alertModal7" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">Javascript</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> çok paradigmalı: betik, prototip tabanlı, zorunlu,
+                                                fonksiyonel<br>
+                                                <b>İlk çıkışı:</b> Mayıs 1995<br>
+                                                <b>Tasarımcı:</b> Brendan Eich<br>
+                                                <b>Geliştirici:</b> Netscape Communications Corporation, Mozilla
+                                                Foundation<br>
+                                                <b>Kararlı sürüm:</b> ECMAScript 6 (17 Haziran 2015)<br>
+                                                <b>Önizleme Sürümü:</b> 2.4.0-preview1(20 Haziran 2016) <br>
+                                                <b>Tip sistemi:</b> zayıf, dinamik, ördek<br>
+                                                <b>Önemli uygulamaları:</b> KJS, Rhino, SpiderMonkey, V8, WebKit<br>
+                                                <b>Etkilendikleri:</b> C, Scheme, Java, Perl, Python, Self<br>
+                                                <b>Etkiledikleri:</b> JScript, JScript .NET, Objective-J, TIScript<br>
+                                                <b>Olağan dosya uzantıları:</b> .js
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/JavaScript"
+                                                                      target="_blank">Javascript Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal8" data-toggle="modal" data-target="#alertModal8"><br><br><br><i
+                                            class="icon-lg devicon-css3-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>Cascading Style Sheets (Basamaklı Stil Şablonları ya da Basamaklı Biçim
+                                        Sayfaları, bilinen kısa adıyla CSS), HTML'e ek olarak metin ve format
+                                        biçimlendirme alanında fazladan olanaklar sunan bir Web teknolojisidir.İnternet
+                                        sayfaları için genelgeçer şablonlar hazırlama olanağı verdiği gibi, bağımsız
+                                        olarak harflerin stilini, yani renk, yazı tipi, büyüklük gibi özelliklerini
+                                        değiştirmek için de kullanılabilir. Bu tekniğin en önemli özelliği
+                                        kullanımındaki esnekliktir.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal8" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">CSS</h2>
+                                            <p class="text-left">
+                                                <b>İlk çıkışı:</b> 17 Aralık 1996<br>
+                                                <b>Geliştirici:</b> Håkon Wium Lie Bert Bos World Wide Web
+                                                Consortium<br>
+                                                <b>Kararlı sürüm:</b>3<br>
+                                                <b>Olağan dosya uzantıları:</b> .css<br>
+                                                Bir Web sayfası içerisinde birbiriyle uyumlu birkaç renk ve birkaç yazı
+                                                tip kullanılır ve bunları her sayfada ayrı ayrı tekrar belirtmek yerine
+                                                CSS yardımıyla bir sefer tanımlayıp bütün Web sayfalarında ortak olarak
+                                                kullanılabilir. Böylece sayfaların hafızadaki boyutu epey küçüldüğü gibi
+                                                güncelleme yapmak da kolaylaşır.
+                                            </p>
+                                            <p class="text-center"><a
+                                                    href="https://tr.0wikipedia.org/wiki/Cascading_Style_Sheets"
+                                                    target="_blank">CSS Hakkında Daha Fazlasını Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+                                <div class="media-left">
+                                    <a href="#alertModal9" data-toggle="modal" data-target="#alertModal9"><br><br><br><i
+                                            class="icon-lg devicon-html5-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>Hiper Metin İşaretleme Dili (İngilizce Hypertext Markup Language, ks. HTML) web
+                                        sayfalarını oluşturmak için kullanılan standart metin işaretleme dilidir. Dilin
+                                        son sürümü HTML5'tir.HTML, bir programlama dili olarak tanımlanamaz. Zira HTML
+                                        kodlarıyla kendi başına çalışan bir program yazılamaz. Ancak bu dili
+                                        yorumlayabilen programlar aracılığıyla çalışabilen programlar yazılabilir.
+                                        Programlama dili denilememesinin nedeni tam olarak budur. </p>
+                                </div>
+                            </div>
+                            <div id="alertModal9" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">HTML</h2>
+                                            <p class="text-left">
+                                                <b>İlk çıkışı:</b> 1993<br>
+                                                <b>Biçim Tipi:</b> Markup Language<br>
+                                                <b>Geliştirici:</b> W3 ve WHATWG<br>
+                                                <b>Platformu: </b> Web <br>
+                                                <b>İşletim Sistemi:</b> Tümü<br>
+                                                <b>Lisans:</b>Açık Kaynak<br>
+                                                <b>Kararlı sürüm:</b>5.0 / 5.1<br>
+                                                <b>Olağan dosya uzantıları:</b> .htm .html<br>
+                                                Temel gereği yazı, görüntü, video gibi değişik verileri ve bunları
+                                                içeren sayfaları birbirine basitçe bağlamak, buna ek olarak söz konusu
+                                                sayfaların web tarayıcısı yazılımları tarafından düzgün olarak
+                                                görüntülenmesi için gerekli kuralları belirlemektir. HTML kodunu web
+                                                tarayıcıları okur, yorumlar ve görsel hale dönüştürürler, dolayısıyla
+                                                aynı HTML kodunun farklı tarayıcılarda farklı sonuç vermesi olasıdır.
+                                                CSS ve JavaScript ile beraber kullanıldığında HTML vasıtasıyla görsel ve
+                                                dinamik web siteleri yaratılabilir.
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/HTML"
+                                                                      target="_blank">HTML Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal11" data-toggle="modal" data-target="#alertModal11"><br><br><br><i
+                                            class="icon-lg devicon-jquery-plain-wordmark"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>jQuery, John Resig tarafından 2006 yılında geliştirilmiş ve şu an geniş bir
+                                        jQuery ekibi tarafından gelişimi sürdürülen bir açık kaynak JavaScript
+                                        kütüphanesidir.jQuery en popüler çapraz-platform JavaScript kütüphanesi ya da
+                                        farklı bir JavaScript web geliştirme çatısıdır denebilir. jQuery yoğun olarak
+                                        animasyonlarda kullanılır. Flash'ın alternatifi olarak kullanılan bu
+                                        teknolojiyle Flash galeri, Tab menü, Sayfa geçişleri gibi birçok işlem
+                                        yapılmaktadır.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal11" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">JQuery</h2>
+                                            <p class="text-left">
+                                                <b>İlk çıkışı:</b> 2006<br>
+                                                <b>Geliştirici:</b> John Resig<br>
+                                                <b>Platformu:</b> Web<br>
+                                                <b>Lisans:</b> MIT Lisansı<br>
+                                                <b>Web Sitesi:</b> <a href="http://www.jquery.com" target="_blank">jquery.com</a><br>
+
+                                                jQuery'nin resmi sitesinden jQuery dosyasını indirip web sitenize
+                                                yükleyebilirsiniz. jQuery boyutu ufak ve işlevi çok olduğundan ayrıca
+                                                hazır eklentileride çok olduğundan çok yaygındır. 2006 Yılından beri
+                                                kullanılan jQuery 2012 yılına kadar inanılmaz bir kullanım artışı
+                                                göstermiştir.JQuery kütüphanesi kullanılarak geliştirilen jqueryui gibi
+                                                daha gelişmiş arayüzleri ve araçları daha kolay kullanabilmemize olanak
+                                                veren ek kütüphaneler de mevcuttur.
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/JQuery"
+                                                                      target="_blank">JQuery Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal10" data-toggle="modal" data-target="#alertModal10"><br><br><br><i
+                                            class="icon-lg devicon-php-plain"></i></a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <p>PHP : Hypertext Preprocessor(Üstünyazı Önişlemcisi) Aslen: Personal Home Page -
+                                        Kişisel Ana Sayfa,internet için üretilmiş, sunucu taraflı, çok geniş kullanımlı,
+                                        genel amaçlı, HTML içerisine gömülebilen betik ve programlama dilidir.İlk kez
+                                        1995 yılında Rasmus Lerdorf tarafından yaratılan PHP'nin geliştirilmesi bugün
+                                        PHP topluluğu tarafından sürdürülmektedir.Ocak 2013 itibariyle 244 milyondan
+                                        fazla web sitesi PHP ile çalışırken, 2.1 milyon web sunucusunda PHP kurulumu
+                                        bulunmaktadır.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal10" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">PHP</h2>
+                                            <p class="text-left">
+                                                <b>Paradigması:</b> çok paradigmalı: zorunlu, nesne yönelimli,
+                                                yordamsal, yansıtıcı<br>
+                                                <b>İlk çıkışı:</b> 1995<br>
+                                                <b>Tasarımcı:</b> Rasmus Lerdorf<br>
+                                                <b>Geliştirici:</b> PHP Grubu<br>
+                                                <b>Kararlı sürüm:</b> 7.0.4(3 Mart 2016)<br>
+                                                <b>Önizleme Sürümü:</b> 7.0.0 RC8(25 Kasım 2015)<br>
+                                                <b>Tip sistemi:</b> zayıf, dinamik<br>
+                                                <b>Önemli uygulamaları:</b> Zend Engine, Phalanger, Quercus, Project
+                                                Zero, HipHop<br>
+                                                <b>Etkilendikleri:</b> C, Perl, Java, C++, Tcl<br>
+                                                <b>Etkiledikleri:</b> Php4delphi, Hack<br>
+                                                <b>Uygulama Dili:</b> C<br>
+                                                <b>Platformu:</b> Çapraz Platform<br>
+                                                <b>Lisans:</b> PHP Lisansı<br>
+                                                <b>Olağan dosya uzantıları:</b> .php, .phtml, .php4, .php3, .php5, .phps
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/PHP"
+                                                                      target="_blank">PHP Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dilkutusu">
+                            <hr>
+                            <div class="media wow fadeIn">
+
+                                <div class="media-left">
+                                    <a href="#alertModal12" data-toggle="modal" data-target="#alertModal12"><br><br><br><i
+                                            class="icon-lg devicon-dot-net-plain-wordmark"></i></a></div>
+                                <div class="media-body media-middle">
+                                    <p>ASP.NET, Microsoft tarafından geliştirilmiş bir web uygulama gelişimi
+                                        teknolojisidir. Özdevinimli (dinamik) web sayfaları, web uygulamaları ve XML
+                                        tabanlı web hizmetleri geliştirilmesine olanak sağlar.Her ne kadar isim
+                                        benzerliği olsa da ASP.NET, ASP'ye oranla çok ciddi bir değişim
+                                        geçirmiştir.Yazılımcılar .Net çatısı tarafından desteklenen tüm dilleri ASP.NET
+                                        uygulamaları geliştirmek için kullanabilirler. Yani, Java teknolojisinde olduğu
+                                        gibi, yazılımcı tarafından yazılan kod, çalıştırılmadan önce sanal bir yazılım
+                                        katmanı tarafından ortak bir dile çevirilmektedir.</p>
+                                </div>
+                            </div>
+                            <div id="alertModal12" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h2 class="text-center">ASP.NET</h2>
+                                            <p class="text-left">
+                                                <b>İlk çıkışı:</b> Aralık 1996<br>
+                                                <b>Geliştirici:</b> Microsoft<br>
+                                                <b>Programlama Dili:</b> VBS, JS<br>
+                                                <b>İşletim Sistemi:</b> Microsoft Windows<br>
+                                                <b>Olağan dosya uzantıları:</b> .asp .aspx <br>
+                                                Bir ASP dosyasının içinde, özel nesneler ve VBS, JS, SQL kodları
+                                                bulunur, bu sayfalar istemci tarafından istendiğinde sunucu öncelikle
+                                                ASP içindeki kodları icra ederek, istemciye göndereceği bilgiyi
+                                                oluşturur ve gönderir. Gönderilen bilgi genellikle HTML (ya da SGML)
+                                                şeklindedir.ASP sayfaları HTML kodlarının içine <% ve %> ASP taglarıyla
+                                                gömülü şekilde oluşturulduğu halde bir kez sunucu tarafından
+                                                yorumlandığında saf HTML olarak döner. Kaynak kodlara bakıldığında ASP
+                                                kodları görülmez. Bu kodlamacıların kaynaklarını saklamalarını
+                                                kolaylaştırır.ASP'nin ortaya çıkış nedenlerinden birisi de CGI
+                                                dillerinin Oturum (Session) ve Uygulamaların (Application) başından
+                                                sonuna kadar izlenmesinin yetersiz oluşundandır.
+                                            </p>
+                                            <p class="text-center"><a href="https://tr.0wikipedia.org/wiki/ASP.NET"
+                                                                      target="_blank">ASP.NET Hakkında Daha Fazlasını
+                                                Öğren</a></p>
+                                            <br/>
+                                            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                                                    aria-hidden="true">KAPAT <i class="ion-android-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fifth Container (Contact) -->
+<div id="contact1" class="container">
+    <h2 class="text-center">İLETİŞİM</h2>
+    <div id="contact2" class="row">
+        <div class="col-sm-5">
+            <p>Bizimle irtibata geçin ve size 24 saat içinde geri dönüş yapacağız.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Sarıyer, İstanbul</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +90 05376128493</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> burakcan.timucin@cafetur.com</p>
+        </div>
+        <div class="col-sm-7 slideanim">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="name" name="name" placeholder="İsim" type="text" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                </div>
+            </div>
+            <textarea class="form-control" id="comments" name="comments" placeholder="Yorum" rows="5"></textarea><br>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <button class="btn btn-default pull-right" type="submit">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="container-fluid bg-5 text-center" style="background-color: #F0F8FF">
+    <div class="col-xs-6">
+        <p>© 2017 Burakcan Timuçin</p>
+    </div>
+    <div class="col-xs-6">
+        <p><a href="#myPage">Üste Dön</a></p>
+    </div>
+</footer>
+
+
+<!-- Smooth Scrolling with jQuery -->
+<script>
+    $(document).ready(function () {
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a#contact, footer a[href='#myPage']").on('click', function (event) {
+
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 900, function () {
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+        });
+
+        // Slide in elements on scroll
+        $(window).scroll(function () {
+            $(".slideanim").each(function () {
+                var pos = $(this).offset().top;
+
+                var winTop = $(window).scrollTop();
+                if (pos < winTop + 600) {
+                    $(this).addClass("slide");
+                }
+            });
+        });
+    })
+</script>
+
+</body>
+</html>

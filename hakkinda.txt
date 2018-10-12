@@ -1,0 +1,5 @@
+<p class="content" id="benNeyim">21 yaşındayım.<br>
+Celal Bayar Üniversitesi'nde Yazılım Mühendisliği bölümünün 3. sınıf öğrencisiyim.<br>
+Web Teknolojileri ile uğraşıyorum.<br>
+Amatör sporları takip etmek ve müzik analiz etmek en büyük hobilerim.<br>
+Kadıköy'de oturuyorum.</p>
